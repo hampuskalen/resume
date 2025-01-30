@@ -1,23 +1,22 @@
 import Resume from "@/components/Resume";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Link } from "react-router-dom";
 
-const Index = () => {
+const PrintableResume = () => {
   return (
     <ThemeProvider defaultTheme="light" storageKey="resume-theme">
-      <div className="relative">
+      <div className="print-optimized">
         <Resume />
         <div className="fixed top-4 right-4 print:hidden">
-          <Link 
-            to="/printable"
+          <button 
+            onClick={() => window.print()} 
             className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
           >
-            Printable Version
-          </Link>
+            Print PDF
+          </button>
         </div>
       </div>
     </ThemeProvider>
   );
 };
 
-export default Index;
+export default PrintableResume;

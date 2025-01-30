@@ -1,11 +1,15 @@
 import { Mail, Phone, Globe, Github, Linkedin, Award, Book, Code, Database } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useLocation } from "react-router-dom";
 
 const Resume = () => {
+  const location = useLocation();
+  const isPrintable = location.pathname === "/printable";
+
   return (
-    <div className="flex flex-row min-h-screen bg-background text-foreground">
+    <div className={`flex ${isPrintable ? 'flex-row' : 'flex-col md:flex-row'} min-h-screen bg-background text-foreground`}>
       {/* Sidebar */}
-      <aside className="w-80 p-8 bg-muted/50 print:bg-transparent shrink-0">
+      <aside className={`${isPrintable ? 'w-80 shrink-0' : 'w-full md:w-80'} p-8 bg-muted/50 print:bg-transparent`}>
         <div className="sticky top-8 space-y-6">
           {/* Profile Image */}
           <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6">
@@ -89,9 +93,11 @@ const Resume = () => {
       <main className="flex-1 p-8 overflow-auto">
         <div className="max-w-3xl">
           {/* Theme Toggle */}
-          <div className="flex justify-end mb-6 print:hidden">
-            <ThemeToggle />
-          </div>
+          {!isPrintable && (
+            <div className="flex justify-end mb-6 print:hidden">
+              <ThemeToggle />
+            </div>
+          )}
 
           {/* Header */}
           <header className="mb-8">
