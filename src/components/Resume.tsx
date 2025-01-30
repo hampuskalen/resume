@@ -3,9 +3,9 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const Resume = () => {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-background text-foreground">
+    <div className="flex flex-row min-h-screen bg-background text-foreground">
       {/* Sidebar */}
-      <aside className="w-full md:w-80 p-8 bg-muted/50 print:bg-transparent">
+      <aside className="w-80 p-8 bg-muted/50 print:bg-transparent shrink-0">
         <div className="sticky top-8 space-y-6">
           {/* Profile Image */}
           <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6">
@@ -86,10 +86,10 @@ const Resume = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 overflow-auto">
         <div className="max-w-3xl">
           {/* Theme Toggle */}
-          <div className="flex justify-end mb-6">
+          <div className="flex justify-end mb-6 print:hidden">
             <ThemeToggle />
           </div>
 

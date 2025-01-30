@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 
 const Index = () => {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="resume-theme">
+    <ThemeProvider defaultTheme="light" storageKey="resume-theme">
       <Resume />
     </ThemeProvider>
   );
