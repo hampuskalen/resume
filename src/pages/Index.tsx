@@ -1,10 +1,11 @@
 import Resume from "@/components/Resume";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <ThemeProvider defaultTheme="system" storageKey="resume-theme">
       <Resume />
-    </div>
+    </ThemeProvider>
   );
 };
 
