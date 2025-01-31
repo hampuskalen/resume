@@ -1,10 +1,32 @@
 import { Mail, Phone, Globe, Github, Linkedin, Award, Book, Code, Database } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLocation } from "react-router-dom";
+import ReactMarkdown from 'react-markdown';
+import { useEffect, useState } from "react";
 
 const Resume = () => {
   const location = useLocation();
   const isPrintable = location.pathname === "/printable";
+  const [resumeContent, setResumeContent] = useState('');
+
+  useEffect(() => {
+    fetch('/resume.md')
+      .then(response => response.text())
+      .then(text => setResumeContent(text))
+      .catch(error => console.error('Error loading resume content:', error));
+  }, []);
+
+  const sections = resumeContent.split('\n## ').filter(Boolean);
+  const mainContent = sections.filter(section => 
+    !['Contact', 'Technical Skills', 'Education'].some(title => 
+      section.startsWith(title)
+    )
+  ).join('\n## ');
+
+  const getSection = (title: string) => {
+    const section = sections.find(s => s.startsWith(title));
+    return section ? section.split('\n').slice(1).join('\n') : '';
+  };
 
   return (
     <div className={`flex ${isPrintable ? 'flex-row' : 'flex-col md:flex-row'} min-h-screen bg-background text-foreground`}>
@@ -24,22 +46,33 @@ const Resume = () => {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold mb-3">Contact</h2>
             <div className="space-y-2 text-sm">
-              <a href="mailto:john.anderson@example.com" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Mail className="h-4 w-4" />
-                john.anderson@example.com
-              </a>
-              <a href="tel:+1234567890" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Phone className="h-4 w-4" />
-                (123) 456-7890
-              </a>
-              <a href="https://github.com/johnanderson" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Github className="h-4 w-4" />
-                github.com/johnanderson
-              </a>
-              <a href="https://linkedin.com/in/johnanderson" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Linkedin className="h-4 w-4" />
-                linkedin.com/in/johnanderson
-              </a>
+              <ReactMarkdown 
+                components={{
+                  ul: ({ children }) => <div className="space-y-2">{children}</div>,
+                  li: ({ children }) => {
+                    const text = children.toString();
+                    const [type, value] = text.split(': ');
+                    
+                    const icons = {
+                      Email: <Mail className="h-4 w-4" />,
+                      Phone: <Phone className="h-4 w-4" />,
+                      GitHub: <Github className="h-4 w-4" />,
+                      LinkedIn: <Linkedin className="h-4 w-4" />
+                    };
+
+                    const icon = icons[type as keyof typeof icons];
+                    
+                    return (
+                      <div className="flex items-center gap-2 hover:text-primary transition-colors">
+                        {icon}
+                        {value}
+                      </div>
+                    );
+                  }
+                }}
+              >
+                {getSection('Contact')}
+              </ReactMarkdown>
             </div>
           </div>
 
@@ -47,24 +80,30 @@ const Resume = () => {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold mb-3">Technical Skills</h2>
             <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Code className="h-4 w-4" /> Languages & Tools
-                </h3>
-                <p className="text-sm text-muted-foreground">Python, SQL, Scala, Java, Git</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Database className="h-4 w-4" /> Data Technologies
-                </h3>
-                <p className="text-sm text-muted-foreground">Apache Spark, Kafka, Airflow, Snowflake</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Award className="h-4 w-4" /> Cloud Platforms
-                </h3>
-                <p className="text-sm text-muted-foreground">AWS, GCP, Azure</p>
-              </div>
+              <ReactMarkdown
+                components={{
+                  h3: ({ children }) => {
+                    const icons = {
+                      'Languages & Tools': <Code className="h-4 w-4" />,
+                      'Data Technologies': <Database className="h-4 w-4" />,
+                      'Cloud Platforms': <Award className="h-4 w-4" />
+                    };
+                    const text = children.toString();
+                    const icon = icons[text as keyof typeof icons];
+                    
+                    return (
+                      <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
+                        {icon} {text}
+                      </h3>
+                    );
+                  },
+                  p: ({ children }) => (
+                    <p className="text-sm text-muted-foreground">{children}</p>
+                  )
+                }}
+              >
+                {getSection('Technical Skills')}
+              </ReactMarkdown>
             </div>
           </div>
 
@@ -72,18 +111,26 @@ const Resume = () => {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold mb-3">Education</h2>
             <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium flex items-center gap-2">
-                  <Book className="h-4 w-4" /> Stanford University
-                </h3>
-                <p className="text-sm text-muted-foreground">M.S. Computer Science, 2015</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium flex items-center gap-2">
-                  <Book className="h-4 w-4" /> UC Berkeley
-                </h3>
-                <p className="text-sm text-muted-foreground">B.S. Computer Engineering, 2013</p>
-              </div>
+              <ReactMarkdown
+                components={{
+                  ul: ({ children }) => <div className="space-y-4">{children}</div>,
+                  li: ({ children }) => {
+                    const text = children.toString();
+                    return (
+                      <div>
+                        <h3 className="text-sm font-medium flex items-center gap-2">
+                          <Book className="h-4 w-4" /> {text.split(',')[0]}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {text.split(',').slice(1).join(',').trim()}
+                        </p>
+                      </div>
+                    );
+                  }
+                }}
+              >
+                {getSection('Education')}
+              </ReactMarkdown>
             </div>
           </div>
         </div>
@@ -99,50 +146,33 @@ const Resume = () => {
             </div>
           )}
 
-          {/* Header */}
-          <header className="mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-2">John Anderson</h1>
-            <h2 className="text-xl text-muted-foreground">Senior Data Engineer</h2>
-          </header>
-
-          {/* Summary */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-primary mb-4">Professional Summary</h2>
-            <p className="text-muted-foreground">
-              Senior Data Engineer with 8+ years of experience designing and implementing scalable data solutions. 
-              Specialized in building robust ETL pipelines, data warehousing, and real-time analytics systems. 
-              Strong expertise in cloud platforms and big data technologies.
-            </p>
-          </section>
-
-          {/* Experience */}
-          <section>
-            <h2 className="text-2xl font-semibold text-primary mb-4">Professional Experience</h2>
-            
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Lead Data Engineer - TechCorp Solutions</h3>
-                <span className="text-sm text-muted-foreground">2020 - Present</span>
-              </div>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Led a team of 5 engineers in developing and maintaining data pipelines processing 5TB+ daily</li>
-                <li>Architected and implemented real-time analytics platform reducing reporting latency by 90%</li>
-                <li>Optimized data warehouse performance resulting in 40% cost reduction</li>
-              </ul>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Senior Data Engineer - DataFlow Inc</h3>
-                <span className="text-sm text-muted-foreground">2017 - 2020</span>
-              </div>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Designed and implemented cloud-based ETL solutions using AWS services</li>
-                <li>Developed data quality framework reducing errors by 75%</li>
-                <li>Mentored junior engineers and led technical design reviews</li>
-              </ul>
-            </div>
-          </section>
+          {/* Main Content */}
+          <ReactMarkdown
+            components={{
+              h1: ({ children }) => (
+                <h1 className="text-4xl font-bold text-primary mb-2">{children}</h1>
+              ),
+              h2: ({ children }) => (
+                <h2 className="text-2xl font-semibold text-primary mb-4">{children}</h2>
+              ),
+              h3: ({ children }) => (
+                <h3 className="text-lg font-semibold">{children}</h3>
+              ),
+              h4: ({ children }) => (
+                <span className="text-sm text-muted-foreground">{children}</span>
+              ),
+              p: ({ children }) => (
+                <p className="text-muted-foreground mb-4">{children}</p>
+              ),
+              ul: ({ children }) => (
+                <ul className="list-disc list-inside text-muted-foreground space-y-2 mb-6">
+                  {children}
+                </ul>
+              )
+            }}
+          >
+            {mainContent}
+          </ReactMarkdown>
         </div>
       </main>
     </div>
