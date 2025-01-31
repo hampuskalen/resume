@@ -10,10 +10,19 @@ const Resume = () => {
   const [resumeContent, setResumeContent] = useState('');
 
   useEffect(() => {
-    fetch('/resume.md')
-      .then(response => response.text())
-      .then(text => setResumeContent(text))
-      .catch(error => console.error('Error loading resume content:', error));
+    // Use relative path for fetching the markdown file
+    fetch('./resume.md')
+      .then(response => {
+        console.log('Fetching resume.md response:', response.status);
+        return response.text();
+      })
+      .then(text => {
+        console.log('Resume content loaded successfully');
+        setResumeContent(text);
+      })
+      .catch(error => {
+        console.error('Error loading resume content:', error);
+      });
   }, []);
 
   const sections = resumeContent.split('\n## ').filter(Boolean);
