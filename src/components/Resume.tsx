@@ -1,10 +1,16 @@
 import { Mail, Globe, Github, Linkedin, Award, Book, Code, Database, BrainCircuit } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Resume = () => {
   const location = useLocation();
   const isPrintable = location.pathname === "/printable";
+
+  useEffect(() => {
+    // Log that we're attempting to load the image
+    console.log("Attempting to load profile image...");
+  }, []);
 
   return (
     <div className={`flex ${isPrintable ? 'flex-row' : 'flex-col md:flex-row'} min-h-screen bg-background text-foreground`}>
@@ -17,6 +23,12 @@ const Resume = () => {
               src="/lovable-uploads/da12c2cd-fdfb-4dd6-bb6d-1134a4bab21a.png"
               alt="Hampus Kalén"
               className="w-full h-full object-cover"
+              onLoad={() => console.log("Profile image loaded successfully")}
+              onError={(e) => {
+                console.error("Error loading profile image:", e);
+                // Optionally set a fallback image
+                e.currentTarget.src = "/placeholder.svg";
+              }}
             />
           </div>
 
