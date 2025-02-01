@@ -1,4 +1,4 @@
-import { Mail, Phone, Globe, Github, Linkedin, Award, Book, Code, Database } from "lucide-react";
+import { Mail, Globe, Github, Linkedin, Award, Book, Code, Database, BrainCircuit } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLocation } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const Resume = () => {
           <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6">
             <img
               src="https://avatars.githubusercontent.com/u/12345678?v=4"
-              alt="John Anderson"
+              alt="Hampus Kalén"
               className="w-full h-full object-cover"
             />
           </div>
@@ -24,21 +24,21 @@ const Resume = () => {
           <div className="space-y-2">
             <h2 className="text-lg font-semibold mb-3">Contact</h2>
             <div className="space-y-2 text-sm">
-              <a href="mailto:john.anderson@example.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+              <a href="mailto:hampus95@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
                 <Mail className="h-4 w-4" />
-                john.anderson@example.com
+                hampus95@gmail.com
               </a>
-              <a href="tel:+1234567890" className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Phone className="h-4 w-4" />
-                (123) 456-7890
+              <a href="https://hampuskalen.github.io" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Globe className="h-4 w-4" />
+                hampuskalen.github.io
               </a>
-              <a href="https://github.com/johnanderson" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+              <a href="https://github.com/hampuskalen" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
                 <Github className="h-4 w-4" />
-                github.com/johnanderson
+                github.com/hampuskalen
               </a>
-              <a href="https://linkedin.com/in/johnanderson" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+              <a href="https://linkedin.com/in/hampus-kalen" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
                 <Linkedin className="h-4 w-4" />
-                linkedin.com/in/johnanderson
+                linkedin.com/in/hampus-kalen
               </a>
             </div>
           </div>
@@ -49,21 +49,21 @@ const Resume = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Code className="h-4 w-4" /> Languages & Tools
+                  <Code className="h-4 w-4" /> Programming & Tools
                 </h3>
-                <p className="text-sm text-muted-foreground">Python, SQL, Scala, Java, Git</p>
+                <p className="text-sm text-muted-foreground">Python, SQL, SAS, Matlab, R, JavaScript, Azure DevOps, GCP, dbt, Databricks, git, CI/CD</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Database className="h-4 w-4" /> Data Technologies
+                  <Database className="h-4 w-4" /> Data & Analytics
                 </h3>
-                <p className="text-sm text-muted-foreground">Apache Spark, Kafka, Airflow, Snowflake</p>
+                <p className="text-sm text-muted-foreground">Pandas, Jupyter, Matplotlib, Looker, Metabase, SQL, Tableau, statsmodels, scikit-learn</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Award className="h-4 w-4" /> Cloud Platforms
+                  <BrainCircuit className="h-4 w-4" /> Machine Learning
                 </h3>
-                <p className="text-sm text-muted-foreground">AWS, GCP, Azure</p>
+                <p className="text-sm text-muted-foreground">Statistical Modeling, Advanced Analytics, Data Science</p>
               </div>
             </div>
           </div>
@@ -74,15 +74,9 @@ const Resume = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium flex items-center gap-2">
-                  <Book className="h-4 w-4" /> Stanford University
+                  <Book className="h-4 w-4" /> Lund University
                 </h3>
-                <p className="text-sm text-muted-foreground">M.S. Computer Science, 2015</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium flex items-center gap-2">
-                  <Book className="h-4 w-4" /> UC Berkeley
-                </h3>
-                <p className="text-sm text-muted-foreground">B.S. Computer Engineering, 2013</p>
+                <p className="text-sm text-muted-foreground">Engineering Physics, specialized in statistics and machine learning</p>
               </div>
             </div>
           </div>
@@ -101,46 +95,84 @@ const Resume = () => {
 
           {/* Header */}
           <header className="mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-2">John Anderson</h1>
-            <h2 className="text-xl text-muted-foreground">Senior Data Engineer</h2>
+            <h1 className="text-4xl font-bold text-primary mb-2">Hampus Kalén</h1>
+            <h2 className="text-xl text-muted-foreground">Data Engineer & Scientist</h2>
           </header>
 
           {/* Summary */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-primary mb-4">Professional Summary</h2>
             <p className="text-muted-foreground">
-              Senior Data Engineer with 8+ years of experience designing and implementing scalable data solutions. 
-              Specialized in building robust ETL pipelines, data warehousing, and real-time analytics systems. 
-              Strong expertise in cloud platforms and big data technologies.
+              Experienced Data Engineer and Scientist with a strong background in building data stacks from scratch and implementing end-to-end data solutions. 
+              Specialized in statistical modeling, machine learning, and advanced analytics with expertise in modern data tools and cloud platforms.
             </p>
           </section>
 
           {/* Experience */}
-          <section>
+          <section className="mb-8">
             <h2 className="text-2xl font-semibold text-primary mb-4">Professional Experience</h2>
             
             <div className="mb-6">
               <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Lead Data Engineer - TechCorp Solutions</h3>
-                <span className="text-sm text-muted-foreground">2020 - Present</span>
+                <h3 className="text-lg font-semibold">Data Engineer - Auctionet</h3>
+                <span className="text-sm text-muted-foreground">2022 - Present</span>
               </div>
               <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Led a team of 5 engineers in developing and maintaining data pipelines processing 5TB+ daily</li>
-                <li>Architected and implemented real-time analytics platform reducing reporting latency by 90%</li>
-                <li>Optimized data warehouse performance resulting in 40% cost reduction</li>
+                <li>One-man data team responsible for building the data stack from scratch</li>
+                <li>Understanding and formulating requirements, architecting data stack, implementing ELT processes</li>
+                <li>Leading BI initiatives and advanced analytics projects</li>
               </ul>
             </div>
 
             <div className="mb-6">
               <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Senior Data Engineer - DataFlow Inc</h3>
-                <span className="text-sm text-muted-foreground">2017 - 2020</span>
+                <h3 className="text-lg font-semibold">Data Scientist - Hedvig</h3>
+                <span className="text-sm text-muted-foreground">2022</span>
               </div>
               <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Designed and implemented cloud-based ETL solutions using AWS services</li>
-                <li>Developed data quality framework reducing errors by 75%</li>
-                <li>Mentored junior engineers and led technical design reviews</li>
+                <li>Full stack data scientist working with end-to-end data use cases</li>
+                <li>Responsibilities included pricing, reserving, and business analysis</li>
+                <li>Utilized Python, dbt, and GCP (including Vertex AI) for data engineering and analysis</li>
               </ul>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-lg font-semibold">Analyst - If P&C Insurance</h3>
+                <span className="text-sm text-muted-foreground">2019-2021</span>
+              </div>
+              <ul className="list-disc list-inside text-muted-foreground space-y-2">
+                <li>Conducted statistical modeling and analysis</li>
+                <li>Developed and modernized processes using Python in Databricks</li>
+                <li>Streamlined workflows and improved analytical capabilities</li>
+              </ul>
+            </div>
+          </section>
+
+          {/* Notable Previous Experience */}
+          <section>
+            <h2 className="text-2xl font-semibold text-primary mb-4">Notable Previous Experience</h2>
+            
+            <div className="mb-6">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-lg font-semibold">Part-time Software Engineer - Voice Diagnostics</h3>
+                <span className="text-sm text-muted-foreground">2018</span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-lg font-semibold">Teaching Assistant - Lund University</h3>
+                <span className="text-sm text-muted-foreground">2015-2018</span>
+              </div>
+              <p className="text-muted-foreground">Teaching basic courses in programming, control theory and statistics</p>
+            </div>
+
+            <div className="mb-6">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="text-lg font-semibold">Configuration Management Intern - Ericsson</h3>
+                <span className="text-sm text-muted-foreground">2017</span>
+              </div>
             </div>
           </section>
         </div>
