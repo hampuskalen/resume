@@ -14,7 +14,7 @@ const Resume = () => {
           {/* Profile Image */}
           <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6">
             <img
-              src="https://avatars.githubusercontent.com/u/12345678?v=4"
+              src="/lovable-uploads/da12c2cd-fdfb-4dd6-bb6d-1134a4bab21a.png"
               alt="Hampus Kalén"
               className="w-full h-full object-cover"
             />
