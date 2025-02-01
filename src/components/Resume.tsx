@@ -20,7 +20,7 @@ const Resume = () => {
           {/* Profile Image */}
           <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6">
             <img
-              src="/lovable-uploads/da12c2cd-fdfb-4dd6-bb6d-1134a4bab21a.png"
+              src="https://github.com/hampuskalen/resume/blob/main/public/lovable-uploads/da12c2cd-fdfb-4dd6-bb6d-1134a4bab21a.png"
               alt="Hampus Kalén"
               className="w-full h-full object-cover"
               onLoad={() => console.log("Profile image loaded successfully")}
