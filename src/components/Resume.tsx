@@ -13,19 +13,15 @@ const Resume = () => {
 
   // Get the base URL for assets
   const getAssetPath = (path: string) => {
-    // Remove leading slash to make path relative
-    const relativePath = path.startsWith('/') ? path.slice(1) : path;
-    if (import.meta.env.DEV) {
-      return `/${relativePath}`;
-    }
-    return relativePath;
+    // Always use relative paths from the root
+    return path;
   };
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
         console.log('Fetching main content...');
-        const mainPath = getAssetPath('src/content/resume.md');
+        const mainPath = getAssetPath('content/resume.md');
         console.log('Main content path:', mainPath);
         const mainResponse = await fetch(mainPath);
         console.log('Main content response status:', mainResponse.status);
@@ -37,7 +33,7 @@ const Resume = () => {
         setMainContent(mainText);
 
         console.log('Fetching sidebar content...');
-        const sidebarPath = getAssetPath('src/content/sidebar.md');
+        const sidebarPath = getAssetPath('content/sidebar.md');
         console.log('Sidebar content path:', sidebarPath);
         const sidebarResponse = await fetch(sidebarPath);
         console.log('Sidebar content response status:', sidebarResponse.status);
