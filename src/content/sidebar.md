@@ -1,7 +1,3 @@
-### Contact
-- Email: hampus95@gmail.com
-- LinkedIn: linkedin.com/in/hampus-kalen
-
 ### Technical Skills
 #### Programming & Tools
 Python, SQL, SAS, Matlab, R, JavaScript, Azure DevOps, GCP, dbt, Databricks, git, CI/CD
