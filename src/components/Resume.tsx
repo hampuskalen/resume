@@ -1,7 +1,7 @@
 import { Mail, Globe, Github, Linkedin, Award, Book, Code, Database, BrainCircuit } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const Resume = () => {
