@@ -7,8 +7,17 @@ const Resume = () => {
   const location = useLocation();
   const isPrintable = location.pathname === "/printable";
 
+  // Get the base URL for assets
+  const getAssetPath = (path: string) => {
+    // In development, use the direct path
+    if (import.meta.env.DEV) {
+      return path;
+    }
+    // In production (GitHub Pages), prepend with .
+    return `.${path}`;
+  };
+
   useEffect(() => {
-    // Log that we're attempting to load the image
     console.log("Attempting to load profile image...");
   }, []);
 
@@ -20,14 +29,13 @@ const Resume = () => {
           {/* Profile Image */}
           <div className="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6">
             <img
-              src="/lovable-uploads/da12c2cd-fdfb-4dd6-bb6d-1134a4bab21a.png"
+              src={getAssetPath("/lovable-uploads/da12c2cd-fdfb-4dd6-bb6d-1134a4bab21a.png")}
               alt="Hampus Kalén"
               className="w-full h-full object-cover"
               onLoad={() => console.log("Profile image loaded successfully")}
               onError={(e) => {
                 console.error("Error loading profile image:", e);
-                // Optionally set a fallback image
-                e.currentTarget.src = "/placeholder.svg";
+                e.currentTarget.src = getAssetPath("/placeholder.svg");
               }}
             />
           </div>
