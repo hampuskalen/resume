@@ -1,4 +1,4 @@
-import { Mail, Globe, Github, Linkedin, Award, Book, Code, Database, BrainCircuit } from "lucide-react";
+import { Mail, Globe, Github, Linkedin } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ const Resume = () => {
   const isPrintable = location.pathname === "/printable";
   const [mainContent, setMainContent] = useState('');
   const [sidebarContent, setSidebarContent] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   // Get the base URL for assets
   const getAssetPath = (path: string) => {
@@ -21,22 +22,34 @@ const Resume = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
+        console.log('Fetching main content...');
         // Fetch main content
         const mainResponse = await fetch(getAssetPath('/src/content/resume.md'));
+        console.log('Main content response status:', mainResponse.status);
+        if (!mainResponse.ok) {
+          throw new Error(`Failed to fetch main content: ${mainResponse.status}`);
+        }
         const mainText = await mainResponse.text();
+        console.log('Main content loaded:', mainText.substring(0, 100) + '...');
         setMainContent(mainText);
 
+        console.log('Fetching sidebar content...');
         // Fetch sidebar content
         const sidebarResponse = await fetch(getAssetPath('/src/content/sidebar.md'));
+        console.log('Sidebar content response status:', sidebarResponse.status);
+        if (!sidebarResponse.ok) {
+          throw new Error(`Failed to fetch sidebar content: ${sidebarResponse.status}`);
+        }
         const sidebarText = await sidebarResponse.text();
+        console.log('Sidebar content loaded:', sidebarText.substring(0, 100) + '...');
         setSidebarContent(sidebarText);
       } catch (error) {
         console.error('Error loading resume content:', error);
+        setError(error instanceof Error ? error.message : 'Failed to load content');
       }
     };
 
     fetchContent();
-    console.log("Attempting to load profile image...");
   }, []);
 
   return (
@@ -83,7 +96,11 @@ const Resume = () => {
 
           {/* Render Sidebar Markdown Content */}
           <div className="prose dark:prose-invert prose-sm">
-            <ReactMarkdown>{sidebarContent}</ReactMarkdown>
+            {error ? (
+              <p className="text-red-500">Error: {error}</p>
+            ) : (
+              <ReactMarkdown>{sidebarContent}</ReactMarkdown>
+            )}
           </div>
         </div>
       </aside>
@@ -100,7 +117,11 @@ const Resume = () => {
 
           {/* Markdown Content */}
           <div className="prose dark:prose-invert">
-            <ReactMarkdown>{mainContent}</ReactMarkdown>
+            {error ? (
+              <p className="text-red-500">Error: {error}</p>
+            ) : (
+              <ReactMarkdown>{mainContent}</ReactMarkdown>
+            )}
           </div>
         </div>
       </main>
