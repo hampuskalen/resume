@@ -1,23 +1,34 @@
 import { Mail, Globe, Github, Linkedin, Award, Book, Code, Database, BrainCircuit } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown';
 
 const Resume = () => {
   const location = useLocation();
   const isPrintable = location.pathname === "/printable";
+  const [content, setContent] = useState('');
 
   // Get the base URL for assets
   const getAssetPath = (path: string) => {
-    // In development, use the direct path
     if (import.meta.env.DEV) {
       return path;
     }
-    // In production (GitHub Pages), prepend with .
     return `.${path}`;
   };
 
   useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(getAssetPath('/src/content/resume.md'));
+        const text = await response.text();
+        setContent(text);
+      } catch (error) {
+        console.error('Error loading resume content:', error);
+      }
+    };
+
+    fetchContent();
     console.log("Attempting to load profile image...");
   }, []);
 
@@ -113,88 +124,10 @@ const Resume = () => {
             </div>
           )}
 
-          {/* Header */}
-          <header className="mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-2">Hampus Kalén</h1>
-            <h2 className="text-xl text-muted-foreground">Data Engineer & Scientist</h2>
-          </header>
-
-          {/* Summary */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-primary mb-4">Professional Summary</h2>
-            <p className="text-muted-foreground">
-              Experienced Data Engineer and Scientist with a strong background in building data stacks from scratch and implementing end-to-end data solutions. 
-              Specialized in statistical modeling, machine learning, and advanced analytics with expertise in modern data tools and cloud platforms.
-            </p>
-          </section>
-
-          {/* Experience */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-primary mb-4">Professional Experience</h2>
-            
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Data Engineer - Auctionet</h3>
-                <span className="text-sm text-muted-foreground">2022 - Present</span>
-              </div>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>One-man data team responsible for building the data stack from scratch</li>
-                <li>Understanding and formulating requirements, architecting data stack, implementing ELT processes</li>
-                <li>Leading BI initiatives and advanced analytics projects</li>
-              </ul>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Data Scientist - Hedvig</h3>
-                <span className="text-sm text-muted-foreground">2022</span>
-              </div>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Full stack data scientist working with end-to-end data use cases</li>
-                <li>Responsibilities included pricing, reserving, and business analysis</li>
-                <li>Utilized Python, dbt, and GCP (including Vertex AI) for data engineering and analysis</li>
-              </ul>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Analyst - If P&C Insurance</h3>
-                <span className="text-sm text-muted-foreground">2019-2021</span>
-              </div>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Conducted statistical modeling and analysis</li>
-                <li>Developed and modernized processes using Python in Databricks</li>
-                <li>Streamlined workflows and improved analytical capabilities</li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Notable Previous Experience */}
-          <section>
-            <h2 className="text-2xl font-semibold text-primary mb-4">Notable Previous Experience</h2>
-            
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Part-time Software Engineer - Voice Diagnostics</h3>
-                <span className="text-sm text-muted-foreground">2018</span>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Teaching Assistant - Lund University</h3>
-                <span className="text-sm text-muted-foreground">2015-2018</span>
-              </div>
-              <p className="text-muted-foreground">Teaching basic courses in programming, control theory and statistics</p>
-            </div>
-
-            <div className="mb-6">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Configuration Management Intern - Ericsson</h3>
-                <span className="text-sm text-muted-foreground">2017</span>
-              </div>
-            </div>
-          </section>
+          {/* Markdown Content */}
+          <div className="prose dark:prose-invert">
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </div>
         </div>
       </main>
     </div>
