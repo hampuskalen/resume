@@ -7,7 +7,8 @@ import ReactMarkdown from 'react-markdown';
 const Resume = () => {
   const location = useLocation();
   const isPrintable = location.pathname === "/printable";
-  const [content, setContent] = useState('');
+  const [mainContent, setMainContent] = useState('');
+  const [sidebarContent, setSidebarContent] = useState('');
 
   // Get the base URL for assets
   const getAssetPath = (path: string) => {
@@ -20,9 +21,15 @@ const Resume = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch(getAssetPath('/src/content/resume.md'));
-        const text = await response.text();
-        setContent(text);
+        // Fetch main content
+        const mainResponse = await fetch(getAssetPath('/src/content/resume.md'));
+        const mainText = await mainResponse.text();
+        setMainContent(mainText);
+
+        // Fetch sidebar content
+        const sidebarResponse = await fetch(getAssetPath('/src/content/sidebar.md'));
+        const sidebarText = await sidebarResponse.text();
+        setSidebarContent(sidebarText);
       } catch (error) {
         console.error('Error loading resume content:', error);
       }
@@ -74,42 +81,9 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Technical Skills */}
-          <div className="space-y-2">
-            <h2 className="text-lg font-semibold mb-3">Technical Skills</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Code className="h-4 w-4" /> Programming & Tools
-                </h3>
-                <p className="text-sm text-muted-foreground">Python, SQL, SAS, Matlab, R, JavaScript, Azure DevOps, GCP, dbt, Databricks, git, CI/CD</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Database className="h-4 w-4" /> Data & Analytics
-                </h3>
-                <p className="text-sm text-muted-foreground">Pandas, Jupyter, Matplotlib, Looker, Metabase, SQL, Tableau, statsmodels, scikit-learn</p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <BrainCircuit className="h-4 w-4" /> Machine Learning
-                </h3>
-                <p className="text-sm text-muted-foreground">Statistical Modeling, Advanced Analytics, Data Science</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Education */}
-          <div className="space-y-2">
-            <h2 className="text-lg font-semibold mb-3">Education</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium flex items-center gap-2">
-                  <Book className="h-4 w-4" /> Lund University
-                </h3>
-                <p className="text-sm text-muted-foreground">Engineering Physics, specialized in statistics and machine learning</p>
-              </div>
-            </div>
+          {/* Render Sidebar Markdown Content */}
+          <div className="prose dark:prose-invert prose-sm">
+            <ReactMarkdown>{sidebarContent}</ReactMarkdown>
           </div>
         </div>
       </aside>
@@ -126,7 +100,7 @@ const Resume = () => {
 
           {/* Markdown Content */}
           <div className="prose dark:prose-invert">
-            <ReactMarkdown>{content}</ReactMarkdown>
+            <ReactMarkdown>{mainContent}</ReactMarkdown>
           </div>
         </div>
       </main>

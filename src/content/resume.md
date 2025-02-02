@@ -4,24 +4,6 @@
 ### Professional Summary
 Experienced Data Engineer and Scientist with a strong background in building data stacks from scratch and implementing end-to-end data solutions. Specialized in statistical modeling, machine learning, and advanced analytics with expertise in modern data tools and cloud platforms.
 
-### Contact
-- Email: hampus95@gmail.com
-- LinkedIn: linkedin.com/in/hampus-kalen
-
-### Technical Skills
-#### Programming & Tools
-Python, SQL, SAS, Matlab, R, JavaScript, Azure DevOps, GCP, dbt, Databricks, git, CI/CD
-
-#### Data & Analytics
-Pandas, Jupyter, Matplotlib, Looker, Metabase, SQL, Tableau, statsmodels, scikit-learn
-
-#### Machine Learning
-Statistical Modeling, Advanced Analytics, Data Science
-
-### Education
-#### Lund University
-Engineering Physics, specialized in statistics and machine learning
-
 ### Professional Experience
 #### Data Engineer - Auctionet (2022 - Present)
 - One-man data team responsible for building the data stack from scratch
@@ -43,5 +25,3 @@ Engineering Physics, specialized in statistics and machine learning
 
 #### Teaching Assistant - Lund University (2015-2018)
 Teaching basic courses in programming, control theory and statistics
-
-#### Configuration Management Intern - Ericsson (2017)
