@@ -6,8 +6,6 @@ Experienced Data Engineer and Scientist with a strong background in building dat
 
 ### Contact
 - Email: hampus95@gmail.com
-- Website: hampuskalen.github.io
-- GitHub: github.com/hampuskalen
 - LinkedIn: linkedin.com/in/hampus-kalen
 
 ### Technical Skills
