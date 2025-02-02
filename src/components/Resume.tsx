@@ -13,18 +13,21 @@ const Resume = () => {
 
   // Get the base URL for assets
   const getAssetPath = (path: string) => {
+    // Remove leading slash to make path relative
+    const relativePath = path.startsWith('/') ? path.slice(1) : path;
     if (import.meta.env.DEV) {
-      return path;
+      return `/${relativePath}`;
     }
-    return `.${path}`;
+    return relativePath;
   };
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
         console.log('Fetching main content...');
-        // Fetch main content
-        const mainResponse = await fetch(getAssetPath('/src/content/resume.md'));
+        const mainPath = getAssetPath('src/content/resume.md');
+        console.log('Main content path:', mainPath);
+        const mainResponse = await fetch(mainPath);
         console.log('Main content response status:', mainResponse.status);
         if (!mainResponse.ok) {
           throw new Error(`Failed to fetch main content: ${mainResponse.status}`);
@@ -34,8 +37,9 @@ const Resume = () => {
         setMainContent(mainText);
 
         console.log('Fetching sidebar content...');
-        // Fetch sidebar content
-        const sidebarResponse = await fetch(getAssetPath('/src/content/sidebar.md'));
+        const sidebarPath = getAssetPath('src/content/sidebar.md');
+        console.log('Sidebar content path:', sidebarPath);
+        const sidebarResponse = await fetch(sidebarPath);
         console.log('Sidebar content response status:', sidebarResponse.status);
         if (!sidebarResponse.ok) {
           throw new Error(`Failed to fetch sidebar content: ${sidebarResponse.status}`);
